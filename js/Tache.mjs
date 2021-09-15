@@ -1,8 +1,14 @@
 export default class Tache {
-
-
-    static setUsager(usager){
-       
+    static api_url = "https://api-nodejs-todolist.herokuapp.com";
+    static token ="";
+    
+    static setUsager(usager, cb){
+        usager = {  
+                    email : "jmartel1@test.test",
+                    password: "123456789",
+                    age : "104",
+                    name : "Jonathan"
+            };
         const entete = new Headers();
         entete.append("Content-Type", "application/json");
         
@@ -13,12 +19,27 @@ export default class Tache {
             redirect: 'follow'
           };
           
-            
+          return fetch(this.api_url + "/user/register", reqOptions)
+            .then((reponse)=>reponse.json())
+            //.then ((data)=> new Promise());
+            /*.then((data)=> {
+                console.log(data);
+                if(cb)
+                {
+                    cb(data);
+                } 
+            });*/
+            /*.then(function(reponse){ 
+                    return reponse.json();
+                })*/
             
     }   
 
     static logUsager(usager){
-       
+        usager = {  
+            email : "jmartel1@test.test",
+            password: "123456789"
+        };
         const entete = new Headers();
         entete.append("Content-Type", "application/json");
         
@@ -28,10 +49,18 @@ export default class Tache {
             body: JSON.stringify(usager),
             redirect: 'follow'
           };
-          
+
+          return fetch(this.api_url + "/user/login", reqOptions)
+            .then((reponse)=>reponse.json())
+            .then((data)=> {
+                console.log(data);
+                this.token = data.token;
+            });
+
     }   
 
     static delUsager(auth){
+        auth = this.token;
         const entete = new Headers();
         entete.append("Authorization", "Bearer "+auth);
 
@@ -39,8 +68,14 @@ export default class Tache {
             method: 'DELETE',
             headers: entete,
             redirect: 'follow'
-          };
-          
+        };
+
+        return fetch(this.api_url + "/user/me", reqOptions)
+            .then((reponse)=>reponse.json())
+            .then((data)=> {
+                console.log(data);
+                this.token = "";
+            });
     }   
 
     static getUsager(auth){
