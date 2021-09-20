@@ -105,8 +105,8 @@ export default class Tache {
      * @returns {Promise}
      * @memberof Tache
      */
-    static delUsager(auth){
-        auth = this.token;
+    static delUsager(){
+        
         const entete = new Headers();
         entete.append("Authorization", "Bearer "+this.token);
 
