@@ -2,10 +2,12 @@ import Affichage from './Affichage.mjs';
 import _App from './App.mjs';
 import Tache from './Tache.mjs';
 
+//import page from "//unpkg.com/page/page.mjs";
+
 (function(){
     let App = {};
 
-    
+
     const aRoutes = [
         {fichier:"enregistrer.html", tmpl : ""}, 
         {fichier:"connecter.html", tmpl : ""}, 
