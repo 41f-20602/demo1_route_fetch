@@ -5,6 +5,7 @@ import Tache from './Tache.mjs';
 (function(){
     let App = {};
 
+    
     const aRoutes = [
         {fichier:"enregistrer.html", tmpl : ""}, 
         {fichier:"connecter.html", tmpl : ""}, 
