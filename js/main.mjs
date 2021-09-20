@@ -46,7 +46,7 @@ import page from "//unpkg.com/page/page.mjs";
         console.log("Connecter");
         //let template = getTemplate(ctx);
         let template = ctx.template;
-        Affichage.AfficherTemplate(template, {}, document.querySelector("main"))
+        Affichage.AfficherTemplate(template, {}, document.querySelector("main"));
     }
     
     function cbAccueil(ctx){
@@ -67,7 +67,15 @@ import page from "//unpkg.com/page/page.mjs";
         console.log("Tache");
         //let template = getTemplate(ctx);
         let template = ctx.template;
-        Affichage.AfficherTemplate(template, {}, document.querySelector("main"))
+        let oListeTache = {taches:[]};
+        Tache.getListeTache()
+            .then(function(data){
+                    oListeTache.taches = data.data;
+                    console.log(oListeTache.taches);
+                    Affichage.AfficherTemplate(template, oListeTache, document.querySelector("main"))
+                });
+        
+        
     }
 
     document.addEventListener("DOMContentLoaded", ()=>{
@@ -118,15 +126,34 @@ import page from "//unpkg.com/page/page.mjs";
 
             if(evt.target.classList.contains("actionConnecter")){
                 console.log("login")
-                Tache.logUsager();
+                let usager = {  
+                    email : "jmartel1@test.test",
+                    password: "123456789",
+                };
+                Tache.logUsager(usager).then(()=>{
+                    console.log("usager connecté")
+                });
             }
             if(evt.target.classList.contains("actionEffacerUsager")){
                 console.log("delete")
-                Tache.delUsager();
+                Tache.delUsager().then(()=>{console.log("usager effacé")});
             }
             if(evt.target.classList.contains("actionEnregistrer")){
-                console.log("set")
-                Tache.setUsager();
+                console.log("set usager")
+                let usager = {  
+                    email : "jmartel1@test.test",
+                    password: "123456789",
+                    age : "104",
+                    name : "Jonathan"
+                };
+                Tache.setUsager(usager).then(()=>{
+                    console.log("nouvel usager")
+                });
+            }
+
+            if(evt.target.classList.contains("actionAjouter")){
+                Tache.setTache()
+                    .then((data)=>console.log("tache ajouté", data));
             }
 
         })

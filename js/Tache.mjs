@@ -32,12 +32,7 @@ export default class Tache {
      * @memberof Tache
      */
     static setUsager(usager, cb){
-        usager = {  
-                    email : "jmartel1@test.test",
-                    password: "123456789",
-                    age : "104",
-                    name : "Jonathan"
-            };
+        
         const entete = new Headers();
         entete.append("Content-Type", "application/json");
         
@@ -75,10 +70,6 @@ export default class Tache {
      * @memberof Tache
      */
     static logUsager(usager){
-        usager = {  
-            email : "jmartel1@test.test",
-            password: "123456789"
-        };
         const entete = new Headers();
         entete.append("Content-Type", "application/json");
         
@@ -137,7 +128,9 @@ export default class Tache {
      * @memberof Tache
      */
     static setTache (tache){
-        
+        tache = {
+            "description": "tache "+ Math.ceil(Math.random()*100)
+        }
         const entete = new Headers();
         entete.append("Content-Type", "application/json");
         entete.append("Authorization", "Bearer "+this.token);
@@ -148,7 +141,10 @@ export default class Tache {
             body: JSON.stringify(tache),
             redirect: 'follow'
           };
-          
+        
+          return fetch(this.api_url + "/task", reqOptions)
+            .then((reponse)=>reponse.json()); 
+
     }
     
     /**
@@ -168,6 +164,8 @@ export default class Tache {
             headers: entete,
             redirect: 'follow'
           };
-          
+        
+        return fetch(this.api_url + "/task", reqOptions)
+          .then((reponse)=>reponse.json()); 
     }
 }

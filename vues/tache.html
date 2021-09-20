@@ -1,5 +1,9 @@
 <ul>
-    <li>Tache 1 <span class="material-icons">delete</span></li>
-    <li>Tache 2 <span class="material-icons">delete</span></li>
-    <li>Tache 3 <span class="material-icons">delete</span></li>
+    {{#taches}}
+        <li data-id="{{_id}}" class="{{^completed}}complete{{/completed}}">{{description}}<span class="material-icons">delete</span></li>
+    {{/taches}}
+    {{^taches}}
+    Aucune tache
+    {{/taches}}
 </ul>
+<p>test</p>
